@@ -1,0 +1,79 @@
+# =========================
+# ASP.NET / C#
+# =========================
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.user
+*.suo
+*.vspscc
+*.vssscc
+.vscode/
+.vs/
+*.dbmdl
+*.bak
+*.ldf
+*.mdf
+*.ndf
+*.snk
+*.swp
+
+# Configuración local
+appsettings.Development.json
+
+# =========================
+# React Native / Node.js
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.expo/
+.expo-shared/
+android/.gradle/
+android/app/build/
+ios/build/
+ios/Pods/
+*.xcworkspace
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/*.pbxuser
+*.xcodeproj/*.mode1v3
+*.xcodeproj/*.mode2v3
+
+# Metro / cache
+.expo/
+.expo-shared/
+.expo-packager-cache/
+.expo-dev-cache/
+.expo-ios/
+.expo-android/
+.expo-web/
+.cache/
+dist/
+build/
+
+# =========================
+# Docker
+# =========================
+*.pid
+*.seed
+*.pid.lock
+docker-compose.override.yml
+.env
+
+# =========================
+# Otros
+# =========================
+Thumbs.db
+Desktop.ini
+.DS_Store
+.idea/
+*.iml
+
+
