@@ -37,23 +37,13 @@ public partial class MedipetContext : DbContext
             entity.Property(e => e.ActualizadoEn)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("actualizado_en");
-            entity.Property(e => e.ActualizadoPor).HasColumnName("actualizado_por");
             entity.Property(e => e.CreadoEn)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("creado_en");
-            entity.Property(e => e.CreadoPor).HasColumnName("creado_por");
             entity.Property(e => e.Estado)
                 .HasDefaultValue(true)
                 .HasColumnName("estado");
             entity.Property(e => e.Nombre).HasColumnName("nombre");
-
-            entity.HasOne(d => d.ActualizadoPorNavigation).WithMany(p => p.RolActualizadoPorNavigations)
-                .HasForeignKey(d => d.ActualizadoPor)
-                .HasConstraintName("rol_actualizado_por_fkey");
-
-            entity.HasOne(d => d.CreadoPorNavigation).WithMany(p => p.RolCreadoPorNavigations)
-                .HasForeignKey(d => d.CreadoPor)
-                .HasConstraintName("rol_creado_por_fkey");
         });
 
         modelBuilder.Entity<Usuario>(entity =>
@@ -70,11 +60,9 @@ public partial class MedipetContext : DbContext
             entity.Property(e => e.ActualizadoEn)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("actualizado_en");
-            entity.Property(e => e.ActualizadoPor).HasColumnName("actualizado_por");
             entity.Property(e => e.CreadoEn)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("creado_en");
-            entity.Property(e => e.CreadoPor).HasColumnName("creado_por");
             entity.Property(e => e.Email).HasColumnName("email");
             entity.Property(e => e.Estado)
                 .HasDefaultValue(true)
@@ -82,14 +70,6 @@ public partial class MedipetContext : DbContext
             entity.Property(e => e.IdRol).HasColumnName("id_rol");
             entity.Property(e => e.Nombre).HasColumnName("nombre");
             entity.Property(e => e.Password).HasColumnName("password");
-
-            entity.HasOne(d => d.ActualizadoPorNavigation).WithMany(p => p.InverseActualizadoPorNavigation)
-                .HasForeignKey(d => d.ActualizadoPor)
-                .HasConstraintName("usuario_actualizado_por_fkey");
-
-            entity.HasOne(d => d.CreadoPorNavigation).WithMany(p => p.InverseCreadoPorNavigation)
-                .HasForeignKey(d => d.CreadoPor)
-                .HasConstraintName("usuario_creado_por_fkey");
 
             entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.IdRol)

@@ -1,3 +1,4 @@
+
 /* TABLES */
 
 create table rol( -- solo rol admin puede ingresar y modificar
@@ -53,3 +54,19 @@ create trigger tr_timestamps_table_usuario
 before insert or update on usuario
 for each row
 execute function set_timestamp_fields();
+
+select * from usuario;
+select * from rol;
+
+insert into rol (nombre) values ('administrador');
+insert into rol (nombre,creado_por,actualizado_por) values ('propietario',1,1);
+insert into rol (nombre,creado_por,actualizado_por) values ('veterinaria',1,1);
+insert into rol (nombre,creado_por,actualizado_por) values ('fundacion',1,1);
+insert into usuario (nombre,email,id_rol,password) values('sebastian','sebas@email.com',1,'sebastian');
+insert into usuario (nombre,email,id_rol,password,creado_por,actualizado_por) values('mariana','mariana@email.com',2,'mariana',1,1);
+insert into usuario (nombre,email,id_rol,password,creado_por,actualizado_por) values('Veterinaria la 32','vet32@email.com',3,'vet32',1,1);
+insert into usuario (nombre,email,id_rol,password,creado_por,actualizado_por) values('Refugio Animal Santa Elena','refugiosantaelena@email.com',4,'refugiosantaelena',1,1);
+
+ALTER TABLE rol
+DROP COLUMN creado_por;
+
