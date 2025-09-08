@@ -27,6 +27,14 @@ public class ApiAuthController : ControllerBase
         if (result == null) return BadRequest("El usuario ya existe.");
         return Ok(result);
     }
+    
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(UserLoginDto dto)
+    {
+        var result = await _authService.LoginAsync(dto);
+        if (result == null) return Unauthorized("Credenciales inválidas.");
+        return Ok(result);
+    }
 
     // --------------
 
@@ -36,7 +44,7 @@ public class ApiAuthController : ControllerBase
         var usuarios = await _repository.GetAll();
         return Ok(usuarios);
     }*/
-    
+
     /*[HttpGet]
     public async Task<ActionResult<List<Usuario>>> GetAll(String email)
     {

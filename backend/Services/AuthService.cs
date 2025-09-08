@@ -20,8 +20,8 @@ public class AuthService : IAuthService
         _userRepository = userRepository;
         _tokenGenerator = tokenGenerator;
     }
-    
-     public async Task<UserResponseDto?> RegisterAsync(UserRegisterDto dto)
+
+    public async Task<UserResponseDto?> RegisterAsync(UserRegisterDto dto)
     {
         var existingUser = await _userRepository.GetByEmailAsync(dto.Email);
         if (existingUser != null) return null; // ya existe
@@ -46,6 +46,23 @@ public class AuthService : IAuthService
             Email = user.Email,
             Rol = rol.Id,
             Token = _tokenGenerator.GenerateToken(user) // JWT
+        };
+    }
+    public async Task<UserResponseDto?> LoginAsync(UserLoginDto dto)
+    {
+        var user = await _userRepository.GetByEmailAsync(dto.Email);
+        if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
+            return null;
+
+        var rol = await _userRepository.GetRolByIdAsync(user.IdRol);
+
+        return new UserResponseDto
+        {
+            Id = user.Id,
+            Nombre = user.Nombre,
+            Email = user.Email,
+            Rol = rol.Id,
+            Token = _tokenGenerator.GenerateToken(user)
         };
     }
 }
