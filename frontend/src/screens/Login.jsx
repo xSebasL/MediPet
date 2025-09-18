@@ -1,5 +1,5 @@
 import {Screen} from './_screen.jsx'
-import {Link} from 'expo-router'
+import {Link, useRouter} from 'expo-router'
 import {StyleSheet, View, TextInput,Text} from 'react-native'
 import { useState } from 'react'
 import { authLogin } from '../../services/api.js'
@@ -8,24 +8,36 @@ import {Button} from '../components/Button.jsx'
 export function Login(){
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const router = useRouter()
 
   const handleLogin = async () => {
-    /*try {
+    try {
       const res = await authLogin(email, password);
-      console.log("Token:", res.data.token);
+      //console.log("Token:", res.token);
       router.replace("/home");
     } catch (err) {
       console.log("Error login:", err.response?.data || err.message);
-    }*/
+    }
   };
 
 
   return <Screen>
     <View style={styles.container}>
       <Text style={styles.label}>Email</Text>
-      <TextInput style={styles.input} placeholder='email'placeholderTextColor='#fff7'/>
+      <TextInput 
+        style={styles.input}
+        placeholder='email'
+        placeholderTextColor='#fff7'
+        value={email}
+        onChangeText={setEmail}/>
       <Text style={styles.label}>Contraseña</Text>
-      <TextInput style={styles.input} secureTextEntry placeholder='password'placeholderTextColor='#fff7'/>
+      <TextInput 
+        style={styles.input}
+        secureTextEntry
+        placeholder='password'
+        placeholderTextColor='#fff7'
+        value={password}
+        onChangeText={setPassword}/>
       <Button onPress={handleLogin}>Entrar</Button>
     </View>
   </Screen>

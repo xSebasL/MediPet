@@ -16,7 +16,20 @@ builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
 builder.Services.AddDbContext<MedipetContext>(options =>
 {
-   options.UseNpgsql(builder.Configuration.GetConnectionString("MedipetContext"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MedipetContext"));
+});
+
+// CORS
+var origenesPermitidos = builder.Configuration.GetSection("origenesPermitidos").Get<string[]>();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(opcionesCors =>
+    {
+        opcionesCors.WithOrigins(origenesPermitidos ?? new string[] { })
+              .AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
 });
 
 var app = builder.Build();
@@ -29,6 +42,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 var summaries = new[]
 {
