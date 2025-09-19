@@ -20,7 +20,7 @@ builder.Services.AddDbContext<MedipetContext>(options =>
 });
 
 // CORS
-var origenesPermitidos = builder.Configuration.GetSection("origenesPermitidos").Get<string[]>();
+/*var origenesPermitidos = builder.Configuration.GetSection("origenesPermitidos").Get<string[]>();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(opcionesCors =>
@@ -30,7 +30,18 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
+});*/
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(cors =>
+    {
+        cors.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
 });
+
+
 
 var app = builder.Build();
 
