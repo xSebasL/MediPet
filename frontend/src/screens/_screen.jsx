@@ -1,7 +1,10 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, StatusBar } from "react-native";
 
-export function Screen({children,}){
-  return <View style={styles.screen}>{children}</View>
+export function Screen({children}){
+  return <View style={styles.screen}>
+    <StatusBar barStyle="light-content" backgroundColor="#000"/>
+    {children}
+  </View>
 }
 
 const styles = StyleSheet.create({
