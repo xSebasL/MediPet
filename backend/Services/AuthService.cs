@@ -48,6 +48,7 @@ public class AuthService : IAuthService
             Token = _tokenGenerator.GenerateToken(user) // JWT
         };
     }
+    
     public async Task<UserResponseDto?> LoginAsync(UserLoginDto dto)
     {
         var user = await _userRepository.GetByEmailAsync(dto.Email);

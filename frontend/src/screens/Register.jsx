@@ -1,13 +1,30 @@
 import {Screen} from './_screen.jsx'
 import {useState} from 'react'
+import {useRouter} from 'expo-router'
 import {StyleSheet, View, TextInput, Text, TouchableOpacity} from 'react-native'
+import {Button} from '../components/Button.jsx'
+import { authRegister } from '../../services/api.js'
 
 export function Register(){
 
   const [nombre, setNombre] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [rol, setRol] = useState('1') // 1: Propietario, 2: Fundación, 3: Veterinaria
+  const [rol, setRol] = useState('2') // 1: Propietario, 2: Fundación, 3: Veterinaria
+
+  const router = useRouter() 
+
+  const handleRegisterPress = async () => {
+    try {
+      // Llamar a la función de registro
+      const res = await authRegister(nombre, email, password, rol);
+      //console.log("Registro exitoso:", res);
+      // Navegar a la pantalla principal o de login
+      router.replace("/home");
+    } catch (err) {
+      console.log("Error registro:", err.response?.data || err.message);
+    }
+  }
 
   return <Screen>
     <View style={styles.container}>
@@ -20,9 +37,9 @@ export function Register(){
       <Text style={[styles.label,{ marginTop: 20, fontWeight: "bold" }]}>Selecciona tu rol:</Text>
       <View style={styles.rolContainer}>
       {[
-        { id: "1", label: "Propietario" },
-        { id: "2", label: "Fundación" },
-        { id: "3", label: "Veterinaria" },
+        { id: "2", label: "Propietario" },
+        { id: "3", label: "Fundación" },
+        { id: "4", label: "Veterinaria" },
       ].map((option) => (
         <TouchableOpacity
           key={option.id}
@@ -34,6 +51,7 @@ export function Register(){
         </TouchableOpacity>
       ))}
       </View>
+      <Button onPress={handleRegisterPress}>Registrarse</Button>
     </View>
   </Screen>
 }

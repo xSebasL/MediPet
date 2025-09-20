@@ -10,7 +10,7 @@ export function Login(){
   const [password, setPassword] = useState('')
   const router = useRouter()
 
-  const handleLogin = async () => {
+  const handleLoginPress = async () => {
     try {
       const res = await authLogin(email, password);
       //console.log("Token:", res.token);
@@ -38,7 +38,7 @@ export function Login(){
         placeholderTextColor='#fff7'
         value={password}
         onChangeText={setPassword}/>
-      <Button onPress={handleLogin}>Entrar</Button>
+      <Button onPress={handleLoginPress}>Entrar</Button>
     </View>
   </Screen>
 }
