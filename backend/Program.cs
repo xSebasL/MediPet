@@ -2,6 +2,9 @@ using backend.Models;
 using Microsoft.EntityFrameworkCore;
 using backend.Repository;
 using backend.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,25 @@ builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddDbContext<MedipetContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("MedipetContext"));
+});
+
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(config=>
+{
+    config.RequireHttpsMetadata = false; // Solo para desarrollo, en prooducción debe ser true
+    config.SaveToken = true; // Guarda el token en el contexto de la solicitud
+    config.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true, // Valida la firma del token
+        ValidateIssuer = false, // No valida el emisor
+        ValidateAudience = false, // No valida la audiencia
+        ValidateLifetime = true, // Valida que el token no haya expirado
+        ClockSkew = TimeSpan.Zero, // Elimina el tiempo de tolerancia para la expiración del token
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+    };
 });
 
 // CORS
@@ -76,6 +98,7 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+app.UseAuthentication();
 app.MapControllers();
 
 app.Run();
