@@ -37,3 +37,24 @@ export async function authRegister(name, email, password, role) {
   await SecureStore.setItemAsync("token", data.token);
   return data;
 }
+
+export const getPets = async () => {
+  const res = await api.get("/pets");
+  return res.data;
+};
+
+export const createPet = async (payload) => {
+  // payload: { nombre, especie, raza, edad, photoUrl }
+  const res = await api.post("/pets", payload);
+  return res.data;
+};
+
+export const updatePet = async (id, payload) => {
+  const res = await api.put(`/pets/${id}`, payload);
+  return res.data;
+};
+
+/*export const deletePet = async (id) => {
+  const res = await api.delete(`/pets/${id}`);
+  return res.status === 204;
+};*/
