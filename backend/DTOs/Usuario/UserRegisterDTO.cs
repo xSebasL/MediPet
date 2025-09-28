@@ -1,4 +1,5 @@
 namespace backend.DTOs.Usuario;
+
 public class UserRegisterDto
 {
     public string Nombre { get; set; } = string.Empty;
