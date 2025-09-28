@@ -10,24 +10,28 @@ const api = axios.create({
   }
 })
 
+
+// Interceptor para agregar el token de autenticación a cada solicitud
 api.interceptors.request.use(async (config) => {
-  const token = await SecureStore.getItemAsync("token");
+  const token = await SecureStore.getItemAsync("token"); // obtener el token del almacenamiento seguro
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`; // agregar el token al encabezado de autorización
   }
-  return config;
+  return config; // retornar la configuración actualizada
 });
 
+// Función para iniciar sesión
 export async function authLogin(email, password) {
-  const response = await api.post("/ApiAuth/login", { email, password });
+  const response = await api.post("/auth/login", { email, password });
   const data = response.data;
   await SecureStore.setItemAsync("token", data.token);
   //console.log("Data: ",data)
   return data; // ya parseado, axios lo hace automático
 }
 
+// Función para registrar a un nuevo usuario
 export async function authRegister(name, email, password, role) {
-  const response = await api.post("/ApiAuth/register", { nombre: name, email, password, idRol:role });
+  const response = await api.post("/auth/register", { nombre: name, email, password, idRol:role });
   const data = response.data;
   //console.log("Data: ",data)
   await SecureStore.setItemAsync("token", data.token);

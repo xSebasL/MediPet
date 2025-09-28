@@ -2,7 +2,7 @@ import {Screen} from './_screen.jsx'
 import {Link, useRouter} from 'expo-router'
 import {StyleSheet, View, TextInput,Text} from 'react-native'
 import { useState } from 'react'
-import { authLogin } from '../../services/api.js'
+import { authLogin } from '../services/api.js'
 import {Button} from '../components/Button.jsx'
 
 export function Login(){

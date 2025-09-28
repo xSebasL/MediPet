@@ -3,7 +3,7 @@ import {useState} from 'react'
 import {useRouter} from 'expo-router'
 import {StyleSheet, View, TextInput, Text, TouchableOpacity} from 'react-native'
 import {Button} from '../components/Button.jsx'
-import { authRegister } from '../../services/api.js'
+import { authRegister } from '../services/api.js'
 
 export function Register(){
 
