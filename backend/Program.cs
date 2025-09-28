@@ -16,6 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+builder.Services.AddScoped<IPetRepository, PetRepository>();
+builder.Services.AddScoped<IPetService, PetService>();
 
 builder.Services.AddDbContext<MedipetContext>(options =>
 {
@@ -99,6 +101,7 @@ app.MapGet("/weatherforecast", () =>
 .WithOpenApi();
 
 app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
