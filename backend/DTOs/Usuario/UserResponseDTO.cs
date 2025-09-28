@@ -1,4 +1,5 @@
-// DTOs/UserResponseDto.cs
+namespace backend.DTOs.Usuario;
+
 public class UserResponseDto
 {
     public int Id { get; set; }

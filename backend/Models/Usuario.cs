@@ -22,4 +22,6 @@ public partial class Usuario
     public DateTime? ActualizadoEn { get; set; }
 
     public virtual Rol? IdRolNavigation { get; set; }
+
+    public virtual ICollection<Mascota> Mascota { get; set; } = new List<Mascota>();
 }
