@@ -6,8 +6,8 @@ import { authLogin } from '../services/api.js'
 import {Button} from '../components/Button.jsx'
 
 export function Login(){
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('sebas@email.com')
+  const [password, setPassword] = useState('sebas1234')
   const router = useRouter()
 
   const handleLoginPress = async () => {

@@ -5,15 +5,16 @@ export default function HomeLayout(){
   return <View style={styles.layout} >
     <Stack
       screenOptions={{
-        headerStyle: {backgroundColor: '#000'},
+        headerShown: false,
+        headerStyle: {backgroundColor: '#f00'},
         headerTintColor: '#0ff',
         contentStyle: {backgroundColor: '#000'},
-        headerTitle: "home",
+        headerTitle: "",
         headerLeft: ()=> {},
         headerRight: ()=> {}
       }}
     >
-      <Stack.Screen name="index" options={{headerShown: true}}/>
+      <Stack.Screen name="index"/>
     </Stack>
   </View>
 }

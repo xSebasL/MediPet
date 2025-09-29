@@ -5,7 +5,7 @@ export default function Layout(){
   return <View style={styles.layout} >
     <Stack
       screenOptions={{
-        headerStyle: {backgroundColor: '#000'},
+        headerStyle: {backgroundColor: '#007'},
         headerTintColor: '#0ff',
         contentStyle: {backgroundColor: '#000'},
         headerTitle: "",
@@ -14,6 +14,7 @@ export default function Layout(){
       }}
     >
       <Stack.Screen name="index" options={{headerShown: false}}/>
+      <Stack.Screen name="auth" options={{headerShown: false}}/>
     </Stack>
   </View>
 }
