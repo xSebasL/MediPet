@@ -3,16 +3,16 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, Pressable, StyleSheet, Alert } from "react-native";
 import { Link, router } from "expo-router";
 import PetCard from "../components/PetCard";
-import * as petsApi from "../services/petsApi";
+import {getPets, deletePet} from "../services/api";
 
-export default function PetsList() {
+export function PetsList() {
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const load = async () => {
     setLoading(true);
     try {
-      const data = await petsApi.getPets();
+      const data = await getPets();
       setPets(data);
     } catch (err) {
       console.log(err);
@@ -31,7 +31,7 @@ export default function PetsList() {
       { text: "Cancelar", style: "cancel" },
       { text: "Eliminar", style: "destructive", onPress: async () => {
         try {
-          await petsApi.deletePet(pet.id);
+          await deletePet(pet.id);
           load();
         } catch (err) { Alert.alert("Error", "No se pudo eliminar"); }
       } }

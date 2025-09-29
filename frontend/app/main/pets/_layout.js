@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
 import { StyleSheet, View } from 'react-native'
 
-export default function HomeLayout(){
+export default function PetsLayout(){
   return <View style={styles.layout} >
     <Stack
       screenOptions={{

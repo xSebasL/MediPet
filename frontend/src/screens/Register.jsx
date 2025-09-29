@@ -20,7 +20,7 @@ export function Register(){
       const res = await authRegister(nombre, email, password, rol);
       //console.log("Registro exitoso:", res);
       // Navegar a la pantalla principal o de login
-      router.replace("/home");
+      router.replace("/main");
     } catch (err) {
       console.log("Error registro:", err.response?.data || err.message);
     }
