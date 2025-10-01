@@ -44,7 +44,7 @@ export function PetsList() {
       <FlatList
         data={pets}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <PetCard pet={item} /* onEdit={handleEdit} onDelete={handleDelete} */ />}
+        renderItem={({ item }) => <PetCard pet={item} onPress={() => router.push(`main/pets/${item.id}`)}/* onEdit={handleEdit} onDelete={handleDelete} */ />}
         refreshing={loading}
         onRefresh={load}
         />

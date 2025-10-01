@@ -2,9 +2,9 @@ import { View, Text, Image, Pressable, StyleSheet } from "react-native";
 import {Button} from './Button'
 import {Link} from 'expo-router'
 
-export function PetCard({ pet, onEdit, onDelete }) {
+export function PetCard({ pet, onPress, onEdit, onDelete }) {
   return (
-
+    <Pressable onPress={onPress}>
       <View style={styles.card}>
         {pet.photoUrl ? <Image source={{ uri: pet.photoUrl }} style={styles.image} /> : <View style={styles.placeholder}><Text>Sin foto</Text></View>}
         <View style={styles.info}>
@@ -13,6 +13,7 @@ export function PetCard({ pet, onEdit, onDelete }) {
           <Text>{pet.edad} años</Text>
         </View>
       </View>
+    </Pressable>
   );
 }
 
