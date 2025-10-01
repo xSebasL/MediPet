@@ -1,20 +1,18 @@
-// frontend/src/components/PetCard.js
-import React from "react";
 import { View, Text, Image, Pressable, StyleSheet } from "react-native";
+import {Button} from './Button'
+import {Link} from 'expo-router'
 
-export default function PetCard({ pet, onEdit, onDelete }) {
+export function PetCard({ pet, onEdit, onDelete }) {
   return (
-    <View style={styles.card}>
-      {pet.photoUrl ? <Image source={{ uri: pet.photoUrl }} style={styles.image} /> : <View style={styles.placeholder}><Text>Sin foto</Text></View>}
-      <View style={styles.info}>
-        <Text style={styles.name}>{pet.nombre}</Text>
-        <Text>{pet.especie} • {pet.edad} años</Text>
-        <View style={styles.actions}>
-          <Pressable onPress={() => onEdit(pet)} style={styles.btn}><Text style={styles.btnText}>Editar</Text></Pressable>
-          <Pressable onPress={() => onDelete(pet)} style={[styles.btn, styles.btnDelete]}><Text style={styles.btnText}>Eliminar</Text></Pressable>
+
+      <View style={styles.card}>
+        {pet.photoUrl ? <Image source={{ uri: pet.photoUrl }} style={styles.image} /> : <View style={styles.placeholder}><Text>Sin foto</Text></View>}
+        <View style={styles.info}>
+          <Text style={styles.name}>{pet.nombre}</Text>
+          <Text>{pet.especie}</Text>
+          <Text>{pet.edad} años</Text>
         </View>
       </View>
-    </View>
   );
 }
 
