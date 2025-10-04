@@ -1,10 +1,11 @@
 // frontend/src/components/PhotoPicker.js
 import React, { useState } from "react";
 import { View, Image, Pressable, Text, StyleSheet, Alert } from "react-native";
+import {Button} from './Button';
 import * as ImagePicker from "expo-image-picker";
 
 // Componente para seleccionar una foto desde la galería o tomar una nueva foto
-export default function PhotoPicker({ photo, onChange }) {
+/* export default function PhotoPicker({ photo, onChange }) {
   const [local, setLocal] = useState(photo); // estado local para mostrar la imagen seleccionada
 
   const pickImage = async () => {
@@ -48,14 +49,30 @@ export default function PhotoPicker({ photo, onChange }) {
       </View>
     </View>
   );
+} */
+
+export function PhotoPicker({ photo, onChange }){
+  const [image, setImage] = useState(null);
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({ // opciones para seleccionar imagen
+      mediaTypes: ['images', 'videos'], // permitir imágener y videos
+      allowsEditing: true, // permitir edición
+      aspect: [4, 3], // relación de aspecto
+      quality: 1, // calidad de la imagen, 1 es la mejor
+    });
+    console.log(result);
+    if (!result.canceled) { // si no se canceló la selección
+      setImage(result.assets[0].uri); // actualizar estado con la URI de la imagen seleccionada
+      onChange(result.assets[0].uri); // 
+    }
+  }
+  return <View style={styles.container}>
+      <Button onPress={pickImage} style={{width:'100%'}}>Seleccionar imagen</Button>
+      {image && <Image source={{ uri: image }} style={styles.image} />}
+  </View>
 }
 
 const styles = StyleSheet.create({
   container: { marginVertical: 8 },
-  image: { width: 120, height: 120, borderRadius: 8 },
-  placeholder: { width: 120, height: 120, borderRadius: 8, borderWidth: 1, borderColor: "#ccc", alignItems: "center", justifyContent: "center" },
-  buttons: { flexDirection: "row", gap: 8, marginTop: 8 },
-  btn: { padding: 8, backgroundColor: "#4CAF50", borderRadius: 6 },
-  btnAlt: { backgroundColor: "#1976D2", marginLeft: 8 },
-  btnText: { color: "white", fontWeight: "bold" }
+  image: { width: 120, height: 120, borderRadius: 8 }
 });

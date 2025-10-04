@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, Pressable, Alert, StyleSheet } from "react-native";
 import { useSearchParams, router } from "expo-router";
-import PhotoPicker from "../components/PhotoPicker";
+import {PhotoPicker} from "../components/PhotoPicker";
+import {Button} from "../components/Button";
 import * as petsApi from "../services/api";
 
 export function PetForm() {
@@ -66,14 +67,21 @@ export function PetForm() {
       <TextInput style={styles.input} value={edad} onChangeText={setEdad} keyboardType="numeric" />
       <Text style={styles.label}>Foto</Text>
       <PhotoPicker photo={photoUrl} onChange={setPhotoUrl} />
-      <Pressable style={styles.saveBtn} onPress={handleSave}><Text style={{ color: "white" }}>Guardar</Text></Pressable>
+      <Button style={styles.saveBtn} onPress={handleSave}>Guardar</Button>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   input: { borderWidth: 1, borderColor: "#ccc", borderRadius: 8, padding: 8, marginBottom: 10 },
-  saveBtn: { backgroundColor: "#4CAF50", padding: 12, borderRadius: 8, alignItems: "center", marginTop: 12 },
+  saveBtn: { 
+    backgroundColor: "#4CAF50", 
+    padding: 12, 
+    borderRadius: 8, 
+    alignItems: "center", 
+    marginTop: 12,
+    width: '100%'
+  },
   label: {
     fontWeight: "bold",
     marginBottom: 4,
