@@ -23,17 +23,17 @@ public class PetsController : ControllerBase
   public async Task<IActionResult> Create([FromBody] PetCreateDto dto)
   {
     // Overwrite dto.UsuarioId from token (no confiar en cliente)
-    var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0");
-    dto.UsuarioId = userId;
+    var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0"); // ID del usuario autenticado, o 0 si no está autenticado
+    dto.UsuarioId = userId; // Asignar el ID del usuario autenticado al DTO
 
     try
     {
-      var result = await _service.CreatePetAsync(dto);
-      return CreatedAtAction(nameof(GetByUser), new { usuarioId = result.UsuarioId }, result);
+      var result = await _service.CreatePetAsync(dto); // Crear la mascota
+      return CreatedAtAction(nameof(GetByUser), new { usuarioId = result.UsuarioId }, result); // Retornar 201 con la mascota creada, y la ruta para obtenerla.
     }
     catch (ArgumentException ex)
     {
-      return BadRequest(new { message = ex.Message });
+      return BadRequest(new { message = ex.Message }); // Retornar 400 si hay un error en los datos
     }
   }
 
@@ -42,8 +42,8 @@ public class PetsController : ControllerBase
   [Authorize]
   public async Task<IActionResult> GetByUser()
   {
-    var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0");
-    var list = await _service.GetPetsByUserAsync(userId);
+    var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0"); // ID del usuario autenticado, o 0 si no está autenticado
+    var list = await _service.GetPetsByUserAsync(userId); // Obtener mascotas del usuario autenticado
     return Ok(list);
   }
   
@@ -52,16 +52,16 @@ public class PetsController : ControllerBase
   [Authorize]
   public async Task<IActionResult> Update(int id, [FromBody] PetUpdateDto dto)
   {
-    var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0");
+    var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0"); // ID del usuario autenticado, o 0 si no está autenticado
     try
     {
-      var updated = await _service.UpdatePetAsync(id, dto, userId);
+      var updated = await _service.UpdatePetAsync(id, dto, userId); // Actualizar la mascota
       if (updated == null) return Forbid(); // o NotFound
-      return Ok(updated);
+      return Ok(updated); // Retornar 200 con la mascota actualizada
     }
     catch (ArgumentException ex)
     {
-      return BadRequest(new { message = ex.Message });
+      return BadRequest(new { message = ex.Message }); // Retornar 400 si hay un error en los datos
     }
   }
 

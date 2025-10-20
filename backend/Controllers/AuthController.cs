@@ -7,15 +7,17 @@ using backend.Repository;
 using backend.Models;
 using backend.DTOs.Usuario;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers;
 
 [Route("api/[controller]")]
+[AllowAnonymous]
 [ApiController]
-public class ApiAuthController : ControllerBase
+public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
-    public ApiAuthController(IAuthService authService)
+    public AuthController(IAuthService authService)
     {
         _authService = authService;
     }

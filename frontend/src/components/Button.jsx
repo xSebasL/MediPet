@@ -8,6 +8,7 @@ export function Button({ children, ...props }) {
         backgroundColor: pressed ? "#f00" : "#00f",
       },
       styles.button,
+      props.style
     ]}>
       <Text style={styles.text}>{children}</Text>
     </Pressable>

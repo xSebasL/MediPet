@@ -3,7 +3,7 @@ import {useState} from 'react'
 import {useRouter} from 'expo-router'
 import {StyleSheet, View, TextInput, Text, TouchableOpacity} from 'react-native'
 import {Button} from '../components/Button.jsx'
-import { authRegister } from '../../services/api.js'
+import { authRegister } from '../services/api.js'
 
 export function Register(){
 
@@ -20,7 +20,7 @@ export function Register(){
       const res = await authRegister(nombre, email, password, rol);
       //console.log("Registro exitoso:", res);
       // Navegar a la pantalla principal o de login
-      router.replace("/home");
+      router.replace("/main");
     } catch (err) {
       console.log("Error registro:", err.response?.data || err.message);
     }

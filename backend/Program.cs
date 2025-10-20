@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Environment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
@@ -18,6 +18,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddScoped<IPetService, PetService>();
+builder.Services.AddScoped<IFileStorageService, FileStorageService>();
+builder.Services.AddHttpContextAccessor(); // para acceder al contexto HTTP en servicios
 
 builder.Services.AddDbContext<MedipetContext>(options =>
 {
@@ -100,6 +102,7 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+app.UseStaticFiles(); // habilita el uso de archivos estáticos en wwwroot
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
